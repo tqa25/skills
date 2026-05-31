@@ -1,7 +1,0 @@
-R_DEF: Internal format may change without notice
-local
-string accessibility_service_description
-string accessibility_service_name
-string app_name
-style Theme.FlowBot
-xml accessibility_service_config

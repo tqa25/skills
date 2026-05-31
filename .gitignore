@@ -1,0 +1,28 @@
+# Gradle
+.gradle/
+build/
+**/build/
+**/.gradle/
+
+# IDEs and editors
+.idea/
+*.iml
+*.ipr
+*.iws
+.vscode/
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?
+
+# Local configuration
+local.properties
+
+# Output files
+*.apk
+*.aar
+*.ap_
+
+# Logs
+*.log
