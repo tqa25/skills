@@ -69,6 +69,7 @@ class WorkflowRepository @Inject constructor(
         runCatching {
             File(getWorkflowDir(), fileName).delete()
             metadataDao.getByFileName(fileName)?.let { metadataDao.delete(it) }
+            Unit
         }
     }
 
