@@ -1,0 +1,85 @@
+{
+  "name": "Google News Link Collector",
+  "description": "Collects article links from Google News feed. Press Home, swipe to news, loop through articles copying links.",
+  "variables": {
+    "output_file": "collected_links.txt"
+  },
+  "steps": [
+    {
+      "id": "press_home",
+      "action": "press_home",
+      "delay_after_ms": 1000
+    },
+    {
+      "id": "swipe_to_news",
+      "action": "swipe",
+      "params": {
+        "direction": "left",
+        "distance": 800
+      },
+      "delay_after_ms": 2000
+    },
+    {
+      "id": "collect_links",
+      "action": "loop",
+      "params": {
+        "count": 5
+      },
+      "steps": [
+        {
+          "id": "long_press_article",
+          "action": "long_press",
+          "selector": {
+            "class_name": "android.widget.TextView",
+            "index": 0
+          },
+          "params": {
+            "duration": 1500
+          },
+          "on_error": "skip",
+          "delay_after_ms": 1000
+        },
+        {
+          "id": "tap_copy_link",
+          "action": "tap",
+          "selector": {
+            "text": "Copy link"
+          },
+          "on_error": "skip",
+          "delay_after_ms": 500
+        },
+        {
+          "id": "read_link",
+          "action": "read_clipboard",
+          "output": "copied_link",
+          "on_error": "skip",
+          "delay_after_ms": 300
+        },
+        {
+          "id": "save_link",
+          "action": "save_to_file",
+          "params": {
+            "variable": "copied_link",
+            "file_path": "$output_file"
+          },
+          "on_error": "skip",
+          "delay_after_ms": 200
+        },
+        {
+          "id": "go_back",
+          "action": "press_back",
+          "delay_after_ms": 1000
+        },
+        {
+          "id": "scroll_to_next",
+          "action": "swipe",
+          "params": {
+            "direction": "up",
+            "distance": 500
+          },
+          "delay_after_ms": 1000
+        }
+      ]
+    }
+  ]
+}

@@ -1,26 +1,25 @@
-# Matt Pocock Skills
+# FlowBot Domain Glossary
 
-A collection of agent skills (slash commands and behaviors) loaded by Claude Code. Skills are organized into buckets and consumed by per-repo configuration emitted by `/setup-matt-pocock-skills`.
+This file defines the shared vocabulary and domain context for the FlowBot project. Agents must use these terms consistently across code, issues, and documentation.
 
-## Language
+## Core Concepts
 
-**Issue tracker**:
-The tool that hosts a repo's issues — GitHub Issues, Linear, a local `.scratch/` markdown convention, or similar. Skills like `to-issues`, `to-prd`, `triage`, and `qa` read from and write to it.
-_Avoid_: backlog manager, backlog backend, issue host
+* **Workflow**: A sequence of automated actions defined in a JSON file.
+* **Step**: A single unit of work within a workflow (e.g., tap, swipe, delay, loop).
+* **Action**: The specific operation a step performs (e.g., `tap`, `long_press`, `wait_for_element`).
+* **Error Policy**: The rule determining what happens when a step fails (`stop`, `skip`, or `retry`).
+* **Selector (ElementSelector)**: A set of criteria (text, class name, resource ID, content description) used to locate a specific UI element on the screen via the Accessibility Service.
+* **Shizuku**: The underlying service used to inject raw `MotionEvent` and `KeyEvent` at the system level without root access.
+* **Accessibility Node Tree**: The hierarchical representation of the UI provided by Android's AccessibilityService, used here purely for element detection (not gesture execution).
+* **Execution Log**: A database record tracking the success, failure, or skipped status of every step execution, along with duration and error messages.
 
-**Issue**:
-A single tracked unit of work inside an **Issue tracker** — a bug, task, PRD, or slice produced by `to-issues`.
-_Avoid_: ticket (use only when quoting external systems that call them tickets)
+## Architectural Boundaries
 
-**Triage role**:
-A canonical state-machine label applied to an **Issue** during triage (e.g. `needs-triage`, `ready-for-afk`). Each role maps to a real label string in the **Issue tracker** via `docs/agents/triage-labels.md`.
+* **WorkflowEngine**: Pure Kotlin orchestrator. Has no Android framework dependencies. Delegates all external interactions to injected interfaces.
+* **GestureExecutor**: Interface for Android gesture injection. Implementation relies on Shizuku's `IInputManager`.
+* **ElementDetector**: Interface for finding UI elements. Implementation relies on Android `AccessibilityService`.
 
-## Relationships
-
-- An **Issue tracker** holds many **Issues**
-- An **Issue** carries one **Triage role** at a time
-
-## Flagged ambiguities
-
-- "backlog" was previously used to mean both the *tool* hosting issues and the *body of work* inside it — resolved: the tool is the **Issue tracker**; "backlog" is no longer used as a domain term.
-- "backlog backend" / "backlog manager" — resolved: collapsed into **Issue tracker**.
+## Constraints & Decisions (Phase 1)
+* **No Root**: The app must use Shizuku, never root (`su`).
+* **No Image Matching**: Phase 1 relies strictly on Accessibility nodes for finding elements. OpenCV/Image matching is out of scope.
+* **Local Storage Only**: Workflows and logs are saved on the device. No server integration.

@@ -1,0 +1,210 @@
+1<?xml version="1.0" encoding="utf-8"?>
+2<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+3    package="com.flowbot.app"
+4    android:versionCode="1"
+5    android:versionName="1.0.0" >
+6
+7    <uses-sdk
+8        android:minSdkVersion="28"
+9        android:targetSdkVersion="34" />
+10
+11    <!-- Permissions -->
+12    <uses-permission android:name="android.permission.INTERNET" />
+12-->/home/ubuntu/workspaces2/projects/chrome-dev/flowbot/app/src/main/AndroidManifest.xml:5:5-67
+12-->/home/ubuntu/workspaces2/projects/chrome-dev/flowbot/app/src/main/AndroidManifest.xml:5:22-64
+13    <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW" />
+13-->/home/ubuntu/workspaces2/projects/chrome-dev/flowbot/app/src/main/AndroidManifest.xml:6:5-78
+13-->/home/ubuntu/workspaces2/projects/chrome-dev/flowbot/app/src/main/AndroidManifest.xml:6:22-75
+14    <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
+14-->/home/ubuntu/workspaces2/projects/chrome-dev/flowbot/app/src/main/AndroidManifest.xml:7:5-77
+14-->/home/ubuntu/workspaces2/projects/chrome-dev/flowbot/app/src/main/AndroidManifest.xml:7:22-74
+15    <uses-permission android:name="android.permission.FOREGROUND_SERVICE_SPECIAL_USE" />
+15-->/home/ubuntu/workspaces2/projects/chrome-dev/flowbot/app/src/main/AndroidManifest.xml:8:5-89
+15-->/home/ubuntu/workspaces2/projects/chrome-dev/flowbot/app/src/main/AndroidManifest.xml:8:22-86
+16
+17    <permission
+17-->[androidx.core:core:1.13.1] /home/ubuntu/.gradle/caches/8.10.2/transforms/86b2cb651386cd34f8a6a76ab6091fa9/transformed/core-1.13.1/AndroidManifest.xml:22:5-24:47
+18        android:name="com.flowbot.app.DYNAMIC_RECEIVER_NOT_EXPORTED_PERMISSION"
+18-->[androidx.core:core:1.13.1] /home/ubuntu/.gradle/caches/8.10.2/transforms/86b2cb651386cd34f8a6a76ab6091fa9/transformed/core-1.13.1/AndroidManifest.xml:23:9-81
+19        android:protectionLevel="signature" />
+19-->[androidx.core:core:1.13.1] /home/ubuntu/.gradle/caches/8.10.2/transforms/86b2cb651386cd34f8a6a76ab6091fa9/transformed/core-1.13.1/AndroidManifest.xml:24:9-44
+20
+21    <uses-permission android:name="com.flowbot.app.DYNAMIC_RECEIVER_NOT_EXPORTED_PERMISSION" />
+21-->[androidx.core:core:1.13.1] /home/ubuntu/.gradle/caches/8.10.2/transforms/86b2cb651386cd34f8a6a76ab6091fa9/transformed/core-1.13.1/AndroidManifest.xml:26:5-97
+21-->[androidx.core:core:1.13.1] /home/ubuntu/.gradle/caches/8.10.2/transforms/86b2cb651386cd34f8a6a76ab6091fa9/transformed/core-1.13.1/AndroidManifest.xml:26:22-94
+22    <uses-permission android:name="moe.shizuku.manager.permission.API_V23" />
+22-->[dev.rikka.shizuku:provider:13.1.5] /home/ubuntu/.gradle/caches/8.10.2/transforms/92668b2e62967183412de077f0fe5e0a/transformed/provider-13.1.5/AndroidManifest.xml:8:5-78
+22-->[dev.rikka.shizuku:provider:13.1.5] /home/ubuntu/.gradle/caches/8.10.2/transforms/92668b2e62967183412de077f0fe5e0a/transformed/provider-13.1.5/AndroidManifest.xml:8:22-75
+23
+24    <application
+24-->/home/ubuntu/workspaces2/projects/chrome-dev/flowbot/app/src/main/AndroidManifest.xml:10:5-52:19
+25        android:name="com.flowbot.app.FlowBotApplication"
+25-->/home/ubuntu/workspaces2/projects/chrome-dev/flowbot/app/src/main/AndroidManifest.xml:11:9-43
+26        android:allowBackup="true"
+26-->/home/ubuntu/workspaces2/projects/chrome-dev/flowbot/app/src/main/AndroidManifest.xml:12:9-35
+27        android:appComponentFactory="androidx.core.app.CoreComponentFactory"
+27-->[androidx.core:core:1.13.1] /home/ubuntu/.gradle/caches/8.10.2/transforms/86b2cb651386cd34f8a6a76ab6091fa9/transformed/core-1.13.1/AndroidManifest.xml:28:18-86
+28        android:debuggable="true"
+29        android:extractNativeLibs="false"
+30        android:icon="@mipmap/ic_launcher"
+30-->/home/ubuntu/workspaces2/projects/chrome-dev/flowbot/app/src/main/AndroidManifest.xml:13:9-43
+31        android:label="@string/app_name"
+31-->/home/ubuntu/workspaces2/projects/chrome-dev/flowbot/app/src/main/AndroidManifest.xml:14:9-41
+32        android:supportsRtl="true"
+32-->/home/ubuntu/workspaces2/projects/chrome-dev/flowbot/app/src/main/AndroidManifest.xml:15:9-35
+33        android:theme="@style/Theme.FlowBot" >
+33-->/home/ubuntu/workspaces2/projects/chrome-dev/flowbot/app/src/main/AndroidManifest.xml:16:9-45
+34
+35        <!-- Main Activity -->
+36        <activity
+36-->/home/ubuntu/workspaces2/projects/chrome-dev/flowbot/app/src/main/AndroidManifest.xml:19:9-27:20
+37            android:name="com.flowbot.app.ui.MainActivity"
+37-->/home/ubuntu/workspaces2/projects/chrome-dev/flowbot/app/src/main/AndroidManifest.xml:20:13-44
+38            android:exported="true"
+38-->/home/ubuntu/workspaces2/projects/chrome-dev/flowbot/app/src/main/AndroidManifest.xml:21:13-36
+39            android:theme="@style/Theme.FlowBot" >
+39-->/home/ubuntu/workspaces2/projects/chrome-dev/flowbot/app/src/main/AndroidManifest.xml:22:13-49
+40            <intent-filter>
+40-->/home/ubuntu/workspaces2/projects/chrome-dev/flowbot/app/src/main/AndroidManifest.xml:23:13-26:29
+41                <action android:name="android.intent.action.MAIN" />
+41-->/home/ubuntu/workspaces2/projects/chrome-dev/flowbot/app/src/main/AndroidManifest.xml:24:17-69
+41-->/home/ubuntu/workspaces2/projects/chrome-dev/flowbot/app/src/main/AndroidManifest.xml:24:25-66
+42
+43                <category android:name="android.intent.category.LAUNCHER" />
+43-->/home/ubuntu/workspaces2/projects/chrome-dev/flowbot/app/src/main/AndroidManifest.xml:25:17-77
+43-->/home/ubuntu/workspaces2/projects/chrome-dev/flowbot/app/src/main/AndroidManifest.xml:25:27-74
+44            </intent-filter>
+45        </activity>
+46
+47        <!-- Shizuku Provider -->
+48        <provider
+49            android:name="rikka.shizuku.ShizukuProvider"
+49-->/home/ubuntu/workspaces2/projects/chrome-dev/flowbot/app/src/main/AndroidManifest.xml:31:13-57
+50            android:authorities="com.flowbot.app.shizuku"
+50-->/home/ubuntu/workspaces2/projects/chrome-dev/flowbot/app/src/main/AndroidManifest.xml:32:13-59
+51            android:enabled="true"
+51-->/home/ubuntu/workspaces2/projects/chrome-dev/flowbot/app/src/main/AndroidManifest.xml:33:13-35
+52            android:exported="true"
+52-->/home/ubuntu/workspaces2/projects/chrome-dev/flowbot/app/src/main/AndroidManifest.xml:34:13-36
+53            android:multiprocess="false"
+53-->/home/ubuntu/workspaces2/projects/chrome-dev/flowbot/app/src/main/AndroidManifest.xml:35:13-41
+54            android:permission="android.permission.INTERACT_ACROSS_USERS_FULL" />
+54-->/home/ubuntu/workspaces2/projects/chrome-dev/flowbot/app/src/main/AndroidManifest.xml:36:13-79
+55
+56        <!-- Accessibility Service -->
+57        <service
+57-->/home/ubuntu/workspaces2/projects/chrome-dev/flowbot/app/src/main/AndroidManifest.xml:39:9-50:19
+58            android:name="com.flowbot.app.service.FlowBotAccessibilityService"
+58-->/home/ubuntu/workspaces2/projects/chrome-dev/flowbot/app/src/main/AndroidManifest.xml:40:13-64
+59            android:exported="false"
+59-->/home/ubuntu/workspaces2/projects/chrome-dev/flowbot/app/src/main/AndroidManifest.xml:41:13-37
+60            android:foregroundServiceType="specialUse"
+60-->/home/ubuntu/workspaces2/projects/chrome-dev/flowbot/app/src/main/AndroidManifest.xml:42:13-55
+61            android:permission="android.permission.BIND_ACCESSIBILITY_SERVICE" >
+61-->/home/ubuntu/workspaces2/projects/chrome-dev/flowbot/app/src/main/AndroidManifest.xml:43:13-79
+62            <intent-filter>
+62-->/home/ubuntu/workspaces2/projects/chrome-dev/flowbot/app/src/main/AndroidManifest.xml:44:13-46:29
+63                <action android:name="android.accessibilityservice.AccessibilityService" />
+63-->/home/ubuntu/workspaces2/projects/chrome-dev/flowbot/app/src/main/AndroidManifest.xml:45:17-92
+63-->/home/ubuntu/workspaces2/projects/chrome-dev/flowbot/app/src/main/AndroidManifest.xml:45:25-89
+64            </intent-filter>
+65
+66            <meta-data
+66-->/home/ubuntu/workspaces2/projects/chrome-dev/flowbot/app/src/main/AndroidManifest.xml:47:13-49:72
+67                android:name="android.accessibilityservice"
+67-->/home/ubuntu/workspaces2/projects/chrome-dev/flowbot/app/src/main/AndroidManifest.xml:48:17-60
+68                android:resource="@xml/accessibility_service_config" />
+68-->/home/ubuntu/workspaces2/projects/chrome-dev/flowbot/app/src/main/AndroidManifest.xml:49:17-69
+69        </service>
+70
+71        <provider
+71-->[androidx.emoji2:emoji2:1.3.0] /home/ubuntu/.gradle/caches/8.10.2/transforms/ad20c959b6852427a3ed9084b2a6c346/transformed/emoji2-1.3.0/AndroidManifest.xml:24:9-32:20
+72            android:name="androidx.startup.InitializationProvider"
+72-->[androidx.emoji2:emoji2:1.3.0] /home/ubuntu/.gradle/caches/8.10.2/transforms/ad20c959b6852427a3ed9084b2a6c346/transformed/emoji2-1.3.0/AndroidManifest.xml:25:13-67
+73            android:authorities="com.flowbot.app.androidx-startup"
+73-->[androidx.emoji2:emoji2:1.3.0] /home/ubuntu/.gradle/caches/8.10.2/transforms/ad20c959b6852427a3ed9084b2a6c346/transformed/emoji2-1.3.0/AndroidManifest.xml:26:13-68
+74            android:exported="false" >
+74-->[androidx.emoji2:emoji2:1.3.0] /home/ubuntu/.gradle/caches/8.10.2/transforms/ad20c959b6852427a3ed9084b2a6c346/transformed/emoji2-1.3.0/AndroidManifest.xml:27:13-37
+75            <meta-data
+75-->[androidx.emoji2:emoji2:1.3.0] /home/ubuntu/.gradle/caches/8.10.2/transforms/ad20c959b6852427a3ed9084b2a6c346/transformed/emoji2-1.3.0/AndroidManifest.xml:29:13-31:52
+76                android:name="androidx.emoji2.text.EmojiCompatInitializer"
+76-->[androidx.emoji2:emoji2:1.3.0] /home/ubuntu/.gradle/caches/8.10.2/transforms/ad20c959b6852427a3ed9084b2a6c346/transformed/emoji2-1.3.0/AndroidManifest.xml:30:17-75
+77                android:value="androidx.startup" />
+77-->[androidx.emoji2:emoji2:1.3.0] /home/ubuntu/.gradle/caches/8.10.2/transforms/ad20c959b6852427a3ed9084b2a6c346/transformed/emoji2-1.3.0/AndroidManifest.xml:31:17-49
+78            <meta-data
+78-->[androidx.lifecycle:lifecycle-process:2.8.3] /home/ubuntu/.gradle/caches/8.10.2/transforms/39f4fddaba6c654a7a1a51bfc3f1ca1d/transformed/lifecycle-process-2.8.3/AndroidManifest.xml:29:13-31:52
+79                android:name="androidx.lifecycle.ProcessLifecycleInitializer"
+79-->[androidx.lifecycle:lifecycle-process:2.8.3] /home/ubuntu/.gradle/caches/8.10.2/transforms/39f4fddaba6c654a7a1a51bfc3f1ca1d/transformed/lifecycle-process-2.8.3/AndroidManifest.xml:30:17-78
+80                android:value="androidx.startup" />
+80-->[androidx.lifecycle:lifecycle-process:2.8.3] /home/ubuntu/.gradle/caches/8.10.2/transforms/39f4fddaba6c654a7a1a51bfc3f1ca1d/transformed/lifecycle-process-2.8.3/AndroidManifest.xml:31:17-49
+81            <meta-data
+81-->[androidx.profileinstaller:profileinstaller:1.3.1] /home/ubuntu/.gradle/caches/8.10.2/transforms/c342251d7b7b71de2d5576c54d1d1bfc/transformed/profileinstaller-1.3.1/AndroidManifest.xml:29:13-31:52
+82                android:name="androidx.profileinstaller.ProfileInstallerInitializer"
+82-->[androidx.profileinstaller:profileinstaller:1.3.1] /home/ubuntu/.gradle/caches/8.10.2/transforms/c342251d7b7b71de2d5576c54d1d1bfc/transformed/profileinstaller-1.3.1/AndroidManifest.xml:30:17-85
+83                android:value="androidx.startup" />
+83-->[androidx.profileinstaller:profileinstaller:1.3.1] /home/ubuntu/.gradle/caches/8.10.2/transforms/c342251d7b7b71de2d5576c54d1d1bfc/transformed/profileinstaller-1.3.1/AndroidManifest.xml:31:17-49
+84        </provider>
+85
+86        <activity
+86-->[androidx.compose.ui:ui-tooling-android:1.6.8] /home/ubuntu/.gradle/caches/8.10.2/transforms/3d87e83c4dc5efd415224286bf9037d5/transformed/ui-tooling-release/AndroidManifest.xml:23:9-25:39
+87            android:name="androidx.compose.ui.tooling.PreviewActivity"
+87-->[androidx.compose.ui:ui-tooling-android:1.6.8] /home/ubuntu/.gradle/caches/8.10.2/transforms/3d87e83c4dc5efd415224286bf9037d5/transformed/ui-tooling-release/AndroidManifest.xml:24:13-71
+88            android:exported="true" />
+88-->[androidx.compose.ui:ui-tooling-android:1.6.8] /home/ubuntu/.gradle/caches/8.10.2/transforms/3d87e83c4dc5efd415224286bf9037d5/transformed/ui-tooling-release/AndroidManifest.xml:25:13-36
+89
+90        <service
+90-->[androidx.room:room-runtime:2.6.1] /home/ubuntu/.gradle/caches/8.10.2/transforms/4e91a927c1db7a4fbfe007ef7f07405f/transformed/room-runtime-2.6.1/AndroidManifest.xml:24:9-28:63
+91            android:name="androidx.room.MultiInstanceInvalidationService"
+91-->[androidx.room:room-runtime:2.6.1] /home/ubuntu/.gradle/caches/8.10.2/transforms/4e91a927c1db7a4fbfe007ef7f07405f/transformed/room-runtime-2.6.1/AndroidManifest.xml:25:13-74
+92            android:directBootAware="true"
+92-->[androidx.room:room-runtime:2.6.1] /home/ubuntu/.gradle/caches/8.10.2/transforms/4e91a927c1db7a4fbfe007ef7f07405f/transformed/room-runtime-2.6.1/AndroidManifest.xml:26:13-43
+93            android:exported="false" />
+93-->[androidx.room:room-runtime:2.6.1] /home/ubuntu/.gradle/caches/8.10.2/transforms/4e91a927c1db7a4fbfe007ef7f07405f/transformed/room-runtime-2.6.1/AndroidManifest.xml:27:13-37
+94
+95        <meta-data
+95-->[dev.rikka.shizuku:provider:13.1.5] /home/ubuntu/.gradle/caches/8.10.2/transforms/92668b2e62967183412de077f0fe5e0a/transformed/provider-13.1.5/AndroidManifest.xml:11:9-13:36
+96            android:name="moe.shizuku.client.V3_SUPPORT"
+96-->[dev.rikka.shizuku:provider:13.1.5] /home/ubuntu/.gradle/caches/8.10.2/transforms/92668b2e62967183412de077f0fe5e0a/transformed/provider-13.1.5/AndroidManifest.xml:12:13-57
+97            android:value="true" />
+97-->[dev.rikka.shizuku:provider:13.1.5] /home/ubuntu/.gradle/caches/8.10.2/transforms/92668b2e62967183412de077f0fe5e0a/transformed/provider-13.1.5/AndroidManifest.xml:13:13-33
+98
+99        <receiver
+99-->[androidx.profileinstaller:profileinstaller:1.3.1] /home/ubuntu/.gradle/caches/8.10.2/transforms/c342251d7b7b71de2d5576c54d1d1bfc/transformed/profileinstaller-1.3.1/AndroidManifest.xml:34:9-52:20
+100            android:name="androidx.profileinstaller.ProfileInstallReceiver"
+100-->[androidx.profileinstaller:profileinstaller:1.3.1] /home/ubuntu/.gradle/caches/8.10.2/transforms/c342251d7b7b71de2d5576c54d1d1bfc/transformed/profileinstaller-1.3.1/AndroidManifest.xml:35:13-76
+101            android:directBootAware="false"
+101-->[androidx.profileinstaller:profileinstaller:1.3.1] /home/ubuntu/.gradle/caches/8.10.2/transforms/c342251d7b7b71de2d5576c54d1d1bfc/transformed/profileinstaller-1.3.1/AndroidManifest.xml:36:13-44
+102            android:enabled="true"
+102-->[androidx.profileinstaller:profileinstaller:1.3.1] /home/ubuntu/.gradle/caches/8.10.2/transforms/c342251d7b7b71de2d5576c54d1d1bfc/transformed/profileinstaller-1.3.1/AndroidManifest.xml:37:13-35
+103            android:exported="true"
+103-->[androidx.profileinstaller:profileinstaller:1.3.1] /home/ubuntu/.gradle/caches/8.10.2/transforms/c342251d7b7b71de2d5576c54d1d1bfc/transformed/profileinstaller-1.3.1/AndroidManifest.xml:38:13-36
+104            android:permission="android.permission.DUMP" >
+104-->[androidx.profileinstaller:profileinstaller:1.3.1] /home/ubuntu/.gradle/caches/8.10.2/transforms/c342251d7b7b71de2d5576c54d1d1bfc/transformed/profileinstaller-1.3.1/AndroidManifest.xml:39:13-57
+105            <intent-filter>
+105-->[androidx.profileinstaller:profileinstaller:1.3.1] /home/ubuntu/.gradle/caches/8.10.2/transforms/c342251d7b7b71de2d5576c54d1d1bfc/transformed/profileinstaller-1.3.1/AndroidManifest.xml:40:13-42:29
+106                <action android:name="androidx.profileinstaller.action.INSTALL_PROFILE" />
+106-->[androidx.profileinstaller:profileinstaller:1.3.1] /home/ubuntu/.gradle/caches/8.10.2/transforms/c342251d7b7b71de2d5576c54d1d1bfc/transformed/profileinstaller-1.3.1/AndroidManifest.xml:41:17-91
+106-->[androidx.profileinstaller:profileinstaller:1.3.1] /home/ubuntu/.gradle/caches/8.10.2/transforms/c342251d7b7b71de2d5576c54d1d1bfc/transformed/profileinstaller-1.3.1/AndroidManifest.xml:41:25-88
+107            </intent-filter>
+108            <intent-filter>
+108-->[androidx.profileinstaller:profileinstaller:1.3.1] /home/ubuntu/.gradle/caches/8.10.2/transforms/c342251d7b7b71de2d5576c54d1d1bfc/transformed/profileinstaller-1.3.1/AndroidManifest.xml:43:13-45:29
+109                <action android:name="androidx.profileinstaller.action.SKIP_FILE" />
+109-->[androidx.profileinstaller:profileinstaller:1.3.1] /home/ubuntu/.gradle/caches/8.10.2/transforms/c342251d7b7b71de2d5576c54d1d1bfc/transformed/profileinstaller-1.3.1/AndroidManifest.xml:44:17-85
+109-->[androidx.profileinstaller:profileinstaller:1.3.1] /home/ubuntu/.gradle/caches/8.10.2/transforms/c342251d7b7b71de2d5576c54d1d1bfc/transformed/profileinstaller-1.3.1/AndroidManifest.xml:44:25-82
+110            </intent-filter>
+111            <intent-filter>
+111-->[androidx.profileinstaller:profileinstaller:1.3.1] /home/ubuntu/.gradle/caches/8.10.2/transforms/c342251d7b7b71de2d5576c54d1d1bfc/transformed/profileinstaller-1.3.1/AndroidManifest.xml:46:13-48:29
+112                <action android:name="androidx.profileinstaller.action.SAVE_PROFILE" />
+112-->[androidx.profileinstaller:profileinstaller:1.3.1] /home/ubuntu/.gradle/caches/8.10.2/transforms/c342251d7b7b71de2d5576c54d1d1bfc/transformed/profileinstaller-1.3.1/AndroidManifest.xml:47:17-88
+112-->[androidx.profileinstaller:profileinstaller:1.3.1] /home/ubuntu/.gradle/caches/8.10.2/transforms/c342251d7b7b71de2d5576c54d1d1bfc/transformed/profileinstaller-1.3.1/AndroidManifest.xml:47:25-85
+113            </intent-filter>
+114            <intent-filter>
+114-->[androidx.profileinstaller:profileinstaller:1.3.1] /home/ubuntu/.gradle/caches/8.10.2/transforms/c342251d7b7b71de2d5576c54d1d1bfc/transformed/profileinstaller-1.3.1/AndroidManifest.xml:49:13-51:29
+115                <action android:name="androidx.profileinstaller.action.BENCHMARK_OPERATION" />
+115-->[androidx.profileinstaller:profileinstaller:1.3.1] /home/ubuntu/.gradle/caches/8.10.2/transforms/c342251d7b7b71de2d5576c54d1d1bfc/transformed/profileinstaller-1.3.1/AndroidManifest.xml:50:17-95
+115-->[androidx.profileinstaller:profileinstaller:1.3.1] /home/ubuntu/.gradle/caches/8.10.2/transforms/c342251d7b7b71de2d5576c54d1d1bfc/transformed/profileinstaller-1.3.1/AndroidManifest.xml:50:25-92
+116            </intent-filter>
+117        </receiver>
+118    </application>
+119
+120</manifest>

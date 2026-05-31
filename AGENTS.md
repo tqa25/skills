@@ -12,3 +12,18 @@ Every skill in `engineering/`, `productivity/`, or `misc/` must have a reference
 Each skill entry in the top-level `README.md` must link the skill name to its `SKILL.md`.
 
 Each bucket folder has a `README.md` that lists every skill in the bucket with a one-line description, with the skill name linked to its `SKILL.md`.
+
+## Agent skills
+
+### Issue tracker
+
+Issues and PRDs for this repo live as markdown files in `.scratch/`. See `docs/agents/issue-tracker.md`.
+
+### Triage labels
+
+Canonical triage roles mapped to standard label strings. See `docs/agents/triage-labels.md`.
+
+### Domain docs
+
+Single-context layout with a global CONTEXT.md and docs/adr/. See `docs/agents/domain.md`.
+

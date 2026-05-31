@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Base theme — Compose handles all actual theming.
+         This exists only for the manifest reference and splash/launch window. -->
+    <style name="Theme.FlowBot" parent="android:Theme.Material.Light.NoActionBar" />
+</resources>

@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="accessibility_service_description">Enables FlowBot to observe and interact with on-screen UI elements to automate workflows on your behalf.</string>
+    <string name="accessibility_service_name">FlowBot Accessibility Service</string>
+    <string name="app_name">FlowBot</string>
+    <style name="Theme.FlowBot" parent="android:Theme.Material.Light.NoActionBar"/>
+</resources>

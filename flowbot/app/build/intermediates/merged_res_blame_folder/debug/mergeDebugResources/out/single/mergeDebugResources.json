@@ -1,0 +1,6 @@
+[
+    {
+        "merged": "com.flowbot.app-debug-62:/xml_accessibility_service_config.xml.flat",
+        "source": "com.flowbot.app-main-64:/xml/accessibility_service_config.xml"
+    }
+]
