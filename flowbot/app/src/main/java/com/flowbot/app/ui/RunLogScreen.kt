@@ -79,7 +79,7 @@ class RunLogViewModel @Inject constructor(
 
     init {
         viewModelScope.launch {
-            val logs = executionLogger.getLogsForRun(runId)
+            val logs = executionLogger.getLogsByRunId(runId)
             _state.update { it.copy(logs = logs, isLoading = false) }
         }
     }

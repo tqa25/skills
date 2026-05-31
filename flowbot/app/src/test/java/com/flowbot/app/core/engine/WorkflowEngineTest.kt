@@ -1,5 +1,6 @@
 package com.flowbot.app.core.engine
 
+import android.graphics.Bitmap
 import android.graphics.Rect
 import com.flowbot.app.core.detection.DetectedElement
 import com.flowbot.app.core.detection.ElementDetector
@@ -9,14 +10,13 @@ import kotlinx.coroutines.test.runTest
 import org.junit.Assert.*
 import org.junit.Before
 import org.junit.Test
-import android.graphics.Bitmap
 
 class WorkflowEngineTest {
 
-    private lateinit engine: WorkflowEngine
-    private lateinit mockGestureExecutor: MockGestureExecutor
-    private lateinit mockElementDetector: MockElementDetector
-    private lateinit mockLogger: MockLogger
+    private lateinit var engine: WorkflowEngine
+    private lateinit var mockGestureExecutor: MockGestureExecutor
+    private lateinit var mockElementDetector: MockElementDetector
+    private lateinit var mockLogger: MockLogger
 
     @Before
     fun setup() {
@@ -35,17 +35,18 @@ class WorkflowEngineTest {
                     id = "step1",
                     action = StepAction.TAP,
                     params = StepParams(x = 100, y = 200),
-                    delayAfterMs = 0
+                    delayAfterMs = 0,
                 )
             )
         )
 
         val result = engine.execute(workflow, "run1")
 
-        assertTrue(result.success)
-        assertEquals(1, result.stepsExecuted)
-        assertEquals(0, result.stepsFailed)
-        
+        assertTrue(result is WorkflowResult.Success)
+        val success = result as WorkflowResult.Success
+        assertEquals(1, success.stepsExecuted)
+        assertEquals(0, success.stepsFailed)
+
         assertEquals(1, mockGestureExecutor.taps.size)
         assertEquals(Pair(100, 200), mockGestureExecutor.taps[0])
     }
@@ -53,7 +54,7 @@ class WorkflowEngineTest {
 
 class MockGestureExecutor : GestureExecutor {
     val taps = mutableListOf<Pair<Int, Int>>()
-    
+
     override suspend fun tap(x: Int, y: Int): Result<Unit> {
         taps.add(Pair(x, y))
         return Result.success(Unit)
@@ -77,7 +78,7 @@ class MockGestureExecutor : GestureExecutor {
 
 class MockElementDetector : ElementDetector {
     override suspend fun findElement(selector: ElementSelector, timeoutMs: Long): Result<DetectedElement> {
-        return Result.success(DetectedElement(Rect(0,0,100,100), "mock", null, null))
+        return Result.success(DetectedElement(Rect(0, 0, 100, 100), "mock", null, null))
     }
 
     override suspend fun findAllElements(selector: ElementSelector): Result<List<DetectedElement>> {
@@ -88,8 +89,8 @@ class MockElementDetector : ElementDetector {
 }
 
 class MockLogger : WorkflowEngine.ExecutionLogCallback {
-    override suspend fun onStepStarted(stepId: String, action: StepAction) {}
-    override suspend fun onStepCompleted(stepId: String, action: StepAction, durationMs: Long) {}
-    override suspend fun onStepFailed(stepId: String, action: StepAction, error: String, durationMs: Long) {}
-    override suspend fun onStepSkipped(stepId: String, action: StepAction) {}
+    override suspend fun onStepStarted(workflowName: String, runId: String, stepId: String, action: StepAction) {}
+    override suspend fun onStepCompleted(workflowName: String, runId: String, stepId: String, action: StepAction, durationMs: Long) {}
+    override suspend fun onStepFailed(workflowName: String, runId: String, stepId: String, action: StepAction, error: String, durationMs: Long) {}
+    override suspend fun onStepSkipped(workflowName: String, runId: String, stepId: String, action: StepAction) {}
 }

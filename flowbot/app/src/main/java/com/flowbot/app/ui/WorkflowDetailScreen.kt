@@ -66,13 +66,16 @@ import com.flowbot.app.data.repository.WorkflowRepository
 import com.flowbot.app.service.WorkflowRunnerService
 import dagger.hilt.android.lifecycle.HiltViewModel
 import dagger.hilt.android.qualifiers.ApplicationContext
+import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
+import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
+import java.util.UUID
 import javax.inject.Inject
 
 // ── State types ─────────────────────────────────────────────────────────────────
@@ -116,7 +119,7 @@ class WorkflowDetailViewModel @Inject constructor(
     val state: StateFlow<WorkflowDetailState> = _state.asStateFlow()
 
     val runHistory: StateFlow<List<RunHistoryItem>> =
-        executionLogger.getRunHistoryFlow(fileName)
+        getRunHistoryFlow(fileName)
             .stateIn(viewModelScope, SharingStarted.WhileSubscribed(5_000), emptyList())
 
     init {
@@ -126,8 +129,9 @@ class WorkflowDetailViewModel @Inject constructor(
     private fun loadWorkflow() {
         viewModelScope.launch {
             _state.update { it.copy(isLoading = true, error = null) }
-            try {
-                val wf = workflowRepository.loadWorkflow(fileName)
+            val result = workflowRepository.loadWorkflow(fileName)
+            if (result.isSuccess) {
+                val wf = result.getOrThrow()
                 _state.update {
                     it.copy(
                         workflow = wf,
@@ -135,9 +139,12 @@ class WorkflowDetailViewModel @Inject constructor(
                         totalSteps = wf.steps.size,
                     )
                 }
-            } catch (e: Exception) {
+            } else {
                 _state.update {
-                    it.copy(isLoading = false, error = e.message ?: "Failed to load workflow")
+                    it.copy(
+                        isLoading = false,
+                        error = result.exceptionOrNull()?.message ?: "Failed to load workflow",
+                    )
                 }
             }
         }
@@ -153,7 +160,7 @@ class WorkflowDetailViewModel @Inject constructor(
         }
         appContext.startForegroundService(intent)
 
-        // Also track in-process for live UI
+        // Also track in-process for live UI feedback
         viewModelScope.launch {
             _state.update {
                 it.copy(
@@ -163,14 +170,8 @@ class WorkflowDetailViewModel @Inject constructor(
                 )
             }
 
-            val result = workflowEngine.execute(workflow) { stepIndex, stepId, message ->
-                _state.update { s ->
-                    s.copy(
-                        currentStepIndex = stepIndex,
-                        liveLog = s.liveLog + "[$stepId] $message",
-                    )
-                }
-            }
+            val runId = UUID.randomUUID().toString()
+            val result = workflowEngine.execute(workflow, runId)
 
             _state.update {
                 it.copy(
@@ -179,8 +180,10 @@ class WorkflowDetailViewModel @Inject constructor(
                         is WorkflowResult.Failure -> ExecutionState.FAILED
                     },
                     liveLog = it.liveLog + when (result) {
-                        is WorkflowResult.Success -> "✓ Workflow completed"
-                        is WorkflowResult.Failure -> "✗ ${result.error}"
+                        is WorkflowResult.Success ->
+                            "✓ Workflow completed (${result.stepsExecuted} steps)"
+                        is WorkflowResult.Failure ->
+                            "✗ ${result.error}"
                     },
                 )
             }
@@ -191,6 +194,23 @@ class WorkflowDetailViewModel @Inject constructor(
         viewModelScope.launch {
             workflowRepository.deleteWorkflow(fileName)
         }
+    }
+
+    /** Build run history from the logger's raw logs, grouped by runId. */
+    private fun getRunHistoryFlow(wfFileName: String): Flow<List<RunHistoryItem>> = flow {
+        val runIds = executionLogger.getRunIds(wfFileName.removeSuffix(".json"))
+        val history = runIds.mapNotNull { runId ->
+            val logs = executionLogger.getLogsByRunId(runId)
+            if (logs.isEmpty()) return@mapNotNull null
+            RunHistoryItem(
+                runId = runId,
+                timestamp = logs.first().timestamp,
+                stepCount = logs.size,
+                successCount = logs.count { it.status == StepStatus.SUCCESS },
+                failedCount = logs.count { it.status == StepStatus.FAILED },
+            )
+        }
+        emit(history)
     }
 }
 
@@ -321,7 +341,11 @@ fun WorkflowDetailScreen(
                     }
 
                     itemsIndexed(workflow.steps) { index, step ->
-                        StepCard(index = index, step = step, isActive = state.executionState == ExecutionState.RUNNING && index == state.currentStepIndex)
+                        StepCard(
+                            index = index,
+                            step = step,
+                            isActive = state.executionState == ExecutionState.RUNNING && index == state.currentStepIndex,
+                        )
                     }
 
                     // ── Run history ─────────────────────────────────────────
@@ -410,7 +434,6 @@ private fun LiveLogCard(lines: List<String>) {
                 fontWeight = FontWeight.Bold,
             )
             Spacer(modifier = Modifier.height(4.dp))
-            // Show last 10 lines to keep it readable
             lines.takeLast(10).forEach { line ->
                 Text(
                     text = line,

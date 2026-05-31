@@ -20,6 +20,7 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.SupervisorJob
 import kotlinx.coroutines.cancel
 import kotlinx.coroutines.launch
+import java.util.UUID
 import javax.inject.Inject
 
 @AndroidEntryPoint
@@ -76,16 +77,21 @@ class WorkflowRunnerService : Service() {
 
     private suspend fun runWorkflow(fileName: String) {
         try {
-            val workflow = workflowRepository.loadWorkflow(fileName)
+            val workflowResult = workflowRepository.loadWorkflow(fileName)
+            if (workflowResult.isFailure) {
+                Log.e(TAG, "Failed to load workflow", workflowResult.exceptionOrNull())
+                updateNotification("✗ Error loading workflow: ${workflowResult.exceptionOrNull()?.message}")
+                return
+            }
+            val workflow = workflowResult.getOrThrow()
             updateNotification("Running: ${workflow.name}")
 
-            val result = workflowEngine.execute(workflow) { stepIndex, stepId, message ->
-                updateNotification("Step ${stepIndex + 1}/${workflow.steps.size}: $stepId")
-            }
+            val runId = UUID.randomUUID().toString()
+            val result = workflowEngine.execute(workflow, runId)
 
             when (result) {
                 is WorkflowResult.Success -> {
-                    updateNotification("✓ ${workflow.name} completed")
+                    updateNotification("✓ ${workflow.name} completed (${result.stepsExecuted} steps)")
                 }
                 is WorkflowResult.Failure -> {
                     updateNotification("✗ ${workflow.name} failed: ${result.error}")

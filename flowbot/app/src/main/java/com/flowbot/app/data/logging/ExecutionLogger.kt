@@ -2,6 +2,7 @@ package com.flowbot.app.data.logging
 
 import com.flowbot.app.core.engine.WorkflowEngine
 import com.flowbot.app.data.model.ExecutionLog
+import com.flowbot.app.data.model.StepAction
 import com.flowbot.app.data.model.StepStatus
 import javax.inject.Inject
 import javax.inject.Singleton
@@ -15,7 +16,7 @@ import javax.inject.Singleton
  */
 @Singleton
 class ExecutionLogger @Inject constructor(
-    private val dao: ExecutionLogDao
+    private val dao: ExecutionLogDao,
 ) : WorkflowEngine.ExecutionLogCallback {
 
     // ── WorkflowEngine.ExecutionLogCallback implementation ──────────────
@@ -24,17 +25,17 @@ class ExecutionLogger @Inject constructor(
         workflowName: String,
         runId: String,
         stepId: String,
-        action: String,
+        action: StepAction,
     ) {
         dao.insert(
             ExecutionLog(
                 workflowName = workflowName,
                 runId = runId,
                 stepId = stepId,
-                action = action,
+                action = action.name,
                 status = StepStatus.SUCCESS, // placeholder — updated on completion
                 durationMs = 0,
-            )
+            ),
         )
     }
 
@@ -42,7 +43,7 @@ class ExecutionLogger @Inject constructor(
         workflowName: String,
         runId: String,
         stepId: String,
-        action: String,
+        action: StepAction,
         durationMs: Long,
     ) {
         dao.insert(
@@ -50,10 +51,10 @@ class ExecutionLogger @Inject constructor(
                 workflowName = workflowName,
                 runId = runId,
                 stepId = stepId,
-                action = action,
+                action = action.name,
                 status = StepStatus.SUCCESS,
                 durationMs = durationMs,
-            )
+            ),
         )
     }
 
@@ -61,20 +62,20 @@ class ExecutionLogger @Inject constructor(
         workflowName: String,
         runId: String,
         stepId: String,
-        action: String,
-        durationMs: Long,
+        action: StepAction,
         error: String,
+        durationMs: Long,
     ) {
         dao.insert(
             ExecutionLog(
                 workflowName = workflowName,
                 runId = runId,
                 stepId = stepId,
-                action = action,
+                action = action.name,
                 status = StepStatus.FAILED,
                 durationMs = durationMs,
                 errorMessage = error,
-            )
+            ),
         )
     }
 
@@ -82,17 +83,17 @@ class ExecutionLogger @Inject constructor(
         workflowName: String,
         runId: String,
         stepId: String,
-        action: String,
+        action: StepAction,
     ) {
         dao.insert(
             ExecutionLog(
                 workflowName = workflowName,
                 runId = runId,
                 stepId = stepId,
-                action = action,
+                action = action.name,
                 status = StepStatus.SKIPPED,
                 durationMs = 0,
-            )
+            ),
         )
     }
 

@@ -85,14 +85,19 @@ class MainViewModel @Inject constructor(
     fun refresh() {
         viewModelScope.launch {
             _isRefreshing.value = true
-            workflowRepository.refreshWorkflows()
+            workflowRepository.copyDefaultWorkflows()
             _isRefreshing.value = false
         }
     }
 
     fun importWorkflow(jsonContent: String, fileName: String) {
         viewModelScope.launch {
-            workflowRepository.importWorkflow(jsonContent, fileName)
+            // Parse and save via repository
+            try {
+                val json = kotlinx.serialization.json.Json { ignoreUnknownKeys = true }
+                val workflow = json.decodeFromString<com.flowbot.app.data.model.Workflow>(jsonContent)
+                workflowRepository.saveWorkflow(fileName, workflow)
+            } catch (_: Exception) { /* ignore parse errors */ }
         }
     }
 }
@@ -112,7 +117,7 @@ fun MainScreen(
 
     val accessibilityEnabled = isAccessibilityServiceEnabled(
         context,
-        "com.flowbot.app/.service.FlowBotAccessibilityService",
+        "com.flowbot.app/.core.detection.FlowBotAccessibilityService",
     )
 
     Scaffold(
@@ -177,6 +182,15 @@ private fun StatusBar(
     shizukuState: ShizukuConnectionState,
     accessibilityEnabled: Boolean,
 ) {
+    val shizukuConnected = shizukuState is ShizukuConnectionState.Connected
+    val shizukuText = when (shizukuState) {
+        is ShizukuConnectionState.Connected -> "Connected"
+        is ShizukuConnectionState.Connecting -> "Connecting…"
+        is ShizukuConnectionState.Disconnected -> "Disconnected"
+        is ShizukuConnectionState.PermissionDenied -> "Permission denied"
+        is ShizukuConnectionState.Error -> "Error"
+    }
+
     Card(
         colors = CardDefaults.cardColors(
             containerColor = MaterialTheme.colorScheme.surfaceVariant,
@@ -186,13 +200,8 @@ private fun StatusBar(
         Column(modifier = Modifier.padding(16.dp)) {
             StatusRow(
                 label = "Shizuku",
-                connected = shizukuState == ShizukuConnectionState.CONNECTED,
-                statusText = when (shizukuState) {
-                    ShizukuConnectionState.CONNECTED -> "Connected"
-                    ShizukuConnectionState.DISCONNECTED -> "Disconnected"
-                    ShizukuConnectionState.NOT_INSTALLED -> "Not installed"
-                    ShizukuConnectionState.PERMISSION_DENIED -> "Permission denied"
-                },
+                connected = shizukuConnected,
+                statusText = shizukuText,
             )
             Spacer(modifier = Modifier.height(8.dp))
             StatusRow(
